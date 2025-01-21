@@ -1,6 +1,6 @@
 // GET all the user
 export default function getUsers() {
+  console.log("test")
   const storedUsers = localStorage.getItem('users');
-  const parsedData = JSON.parse(storedUsers);
-  return parsedData;
+  return JSON.parse(storedUsers) || [];
 }
