@@ -28,3 +28,7 @@
   background-color: var(--secondary)
 }
 
+#have-account{
+  cursor: pointer;
+}
+

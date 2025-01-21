@@ -11,7 +11,7 @@ signIn.addEventListener("submit", function (e) {
   const user = User.validateLogin(email, password);
   if (user) {
     console.log("Login successful for:", user);
-    // Redirect to another page or proceed
+    window.location.assign("../test/ready/ready.html")
   } else {
     alert("Invalid email or password.");
   }

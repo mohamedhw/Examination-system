@@ -1,7 +1,17 @@
 import User from "./user.js";
 
 const signUp = document.getElementById("sign-up");
+const haveAccount = document.getElementById("have-account");
 
+// Toggle visibility of forms
+function showLogin() {
+  const registerContainer = document.getElementById("register");
+  const loginContainer = document.getElementById("login");
+
+  registerContainer.classList.add("hide");
+  loginContainer.classList.remove("hide");
+  loginContainer.classList.add("row");
+}
 signUp.addEventListener("submit", function (e) {
   e.preventDefault();
   const formData = new FormData(signUp);
@@ -25,13 +35,8 @@ signUp.addEventListener("submit", function (e) {
   // Create new user and save to local storage
   const newUser = new User(fName, lName, email, password);
   newUser.saveToLocalStorage();
-
-  // Toggle visibility of forms
-  const registerContainer = document.getElementById("register");
-  const loginContainer = document.getElementById("login");
-
-  registerContainer.classList.add("hide");
-  loginContainer.classList.remove("hide");
-  loginContainer.classList.add("row");
+  showLogin();
 });
+
+haveAccount.addEventListener("click", showLogin)
 
