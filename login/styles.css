@@ -1,0 +1,25 @@
+:root {
+  --text: #e6ecf3;
+  --background: #0c1118;
+  --primary: #9db7ce;
+  --secondary: #333567;
+  --accent: #6a5cae;}
+
+#login{
+  background-color: var(--secondary)
+}
+
+.side{
+  height: 100vh;
+  background-color: var(--primary);
+  border-radius: 20% 0 0 20%;
+}
+
+.sign {
+  background-color: var(--primary);
+  border-radius: 5%;
+}
+
+#register{
+  background-color: #ccc;
+}
