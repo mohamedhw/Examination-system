@@ -16,14 +16,16 @@ function login(userEmail, userPassword) {
       }
     });
 
+    return true;
   } else {
 
     console.log('Key does not exist in localStorage.');
+    return false;
 
   }
 }
 
-addEventListener("submit", function (e) {
+signIn.addEventListener("submit", function (e) {
   e.preventDefault();
   const formData = new FormData(signIn);
   const email = formData.get('email');
