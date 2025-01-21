@@ -1,12 +1,6 @@
+import getUsers from "./users.js"
+
 const signIn = document.getElementById("sign-in");
-
-// GET all the user
-function getUsers() {
-  const storedUsers = localStorage.getItem('users');
-  const parsedData = JSON.parse(storedUsers);
-  return parsedData;
-}
-
 
 // login function
 function login(userEmail, userPassword) {
