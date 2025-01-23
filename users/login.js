@@ -11,7 +11,10 @@ signIn.addEventListener("submit", function (e) {
   const user = User.validateLogin(email, password);
   if (user) {
     console.log("Login successful for:", user);
-    window.location.assign("../test/ready/ready.html")
+    if (!localStorage.getItem("logedin")) {
+      localStorage.setItem("logedin", email)
+    }
+    window.location.assign("../exam/ready/ready.html")
   } else {
     alert("Invalid email or password.");
   }

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>exam</title>
+  <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+
+  <link href="./exam.css" rel="stylesheet">
+</head>
+
+<body>
+  <div class="container-fluid">
+    <div class="question-s row d-flex align-items-center justify-content-center">
+      <div class="col-md-9 p-5 m-5 question">
+        <div class="d-flex">
+          <i class="bi bi-flag-fill me-3" id="flag"></i>
+          <h2 id="question-text"></h2>
+        </div>
+        <div id="options-container" class="ans pt-3">
+        </div>
+        <div id="navigation-container" class="d-flex justify-content-center">
+        </div>
+      </div>
+      <div id="side" class="col side">
+      </div>
+    </div>
+  </div>
+  <script src="../static/js/bootstrap.min.js"></script>
+  <script type="module" src="./exam.js"></script>
+</body>
+
+</html>

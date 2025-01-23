@@ -4,7 +4,7 @@ export default class User {
     this.lastName = lastName;
     this.email = email;
     this.password = password;
-    this.exams = {}; // Store exam names and scores
+    this.exams = []; // Store exam names and scores
   }
 
   // Save the user to local storage
