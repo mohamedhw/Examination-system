@@ -7,12 +7,51 @@ class Question {
     this.options = options;
     this.correctAnswer = correctAnswer;
     this.explanation = explanation;
+    this.flag = new Flag(id);
   }
 
   isCorrect(userAnswer) {
     return userAnswer === this.correctAnswer;
   }
+
+  toggleFlag() {
+    this.flag.toggleFlag();
+  }
+
 }
+class Flag {
+  constructor(id) {
+    this.id = id;
+    this.flag = Flag.getFlagState(id) || false; // Initialize from localStorage if available
+  }
+
+  static getFlagState(id) {
+    try {
+      const flags = JSON.parse(localStorage.getItem("flags")) || {};
+      return flags[id];
+    } catch (error) {
+      console.error("Error parsing flags from localStorage:", error);
+      return false;
+    }
+  }
+
+  static setFlagState(id, flag) {
+    try {
+      const flagsString = localStorage.getItem("flags");
+      const flags = flagsString ? JSON.parse(flagsString) : {};
+      flags[id] = flag;
+      localStorage.setItem("flags", JSON.stringify(flags));
+    } catch {
+      console.error("Error setting flag state:", error);
+    }
+  }
+
+  toggleFlag() {
+    this.flag = !this.flag;
+    Flag.setFlagState(this.id, this.flag);
+  }
+}
+
 
 class Exam {
   constructor(userEmail, questions = []) {
@@ -92,28 +131,37 @@ fetch("../shared/data/javascript-questions.json")
     if (!loggedInUserEmail) {
       throw new Error("No logged-in user found");
     }
-
     const exam = new Exam(loggedInUserEmail, questions);
     renderExam(exam);
   })
-  .catch((error) => console.error("Error loading questions:", error));
+// .catch((error) => console.error("Error loading questions:", error))
 
 function renderExam(exam) {
   const currentQuestion = exam.getCurrentQuestion();
+  flagChange(exam)
   const questionIndex = exam.currentQuestionIndex;
-
   // Render question text
   const questionEl = document.getElementById("question-text")
   questionEl.innerText = currentQuestion.questionText;
+
   const flag = document.getElementById("flag")
   const flags = document.getElementsByClassName("flag")
 
   flag.setAttribute("value", currentQuestion.id);
-  flag.onclick = () => addFlag(currentQuestion);
+
+  flag.onclick = () => {
+    currentQuestion.toggleFlag();
+    flagChange(exam);
+    renderExam(exam)
+  }
 
   for (let i = 0; i < flags.length; i++) {
-    flags[i].onclick = exam.goToQuestionById(flags[i].value);
-  }
+    flags[i].addEventListener("click", function () {
+      exam.goToQuestionById(flags[i].getAttribute("value"))
+      renderExam(exam)
+    })
+  };
+
 
 
   // Render options
@@ -169,6 +217,7 @@ function renderExam(exam) {
   if (questionIndex === exam.questions.length - 1) {
     const submitButton = createButton("Submit", false, () => {
       exam.storeResults();
+      localStorage.setItem("flags", "{}")
       console.log(`Exam Score: ${exam.score}`);
       location.assign("./success/success.html");
     });
@@ -178,29 +227,19 @@ function renderExam(exam) {
 
 
 
-function addFlag(question) {
+function flagChange(exam) {
   const side = document.getElementById("side");
-  const flags = document.getElementsByClassName("flag");
+  side.innerHTML = ""
 
-  // the flag exists
-  let flagExists = false;
-  for (let i = 0; i < flags.length; i++) {
-    if (flags[i].getAttribute("value") === question.id) {
-      flagExists = true;
-      break;
+  for (let i = 0; i < exam.questions.length; i++) {
+    if (exam.questions[i].flag.flag) {
+      const flagEl = document.createElement("p");
+      flagEl.setAttribute("value", exam.questions[i].id);
+      flagEl.classList.add("flag");
+      flagEl.classList.add("m-3");
+      flagEl.innerText = `Flag ${exam.questions[i].id}`;
+      side.appendChild(flagEl);
     }
-  }
-
-  // flag doesn't exist
-  if (!flagExists) {
-    const flagEl = document.createElement("p");
-    flagEl.setAttribute("value", question.id);
-    flagEl.classList.add("flag");
-    flagEl.classList.add("m-3");
-    flagEl.innerText = `Flag ${question.id}`;
-    side.appendChild(flagEl);
-  } else {
-    console.log(`Flag for question ${question.id} already exists.`);
   }
 }
 

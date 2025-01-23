@@ -34,3 +34,7 @@ body {
   height: 100vh;
 }
 
+.flag {
+  cursor: pointer;
+}
+
