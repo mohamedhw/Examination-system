@@ -1,81 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login</title>
-    <link href="../static/css/bootstrap.min.css" rel="stylesheet" />
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <div class="container-fluid vh-100">
-      <div class="row h-100">
-        <!-- Left Side -->
-        <div
-          class="col-md-6 left-side d-flex justify-content-center align-items-center"
-        >
-          <div class="text-center">
-            <img
-              src="../images/solve2.jpg"
-              class="img-fluid rounded"
-              alt="Login"
-            />
-            <h2 class="mt-4">Welcome Back!</h2>
-            <p>Login to continue to your account.</p>
-          </div>
-        </div>
 
-        <!-- Right Side -->
-        <div class="col-md-6 d-flex justify-content-center align-items-center">
-          <div class="form-container p-4">
-            <h2 class="text-center mb-4">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login</title>
+  <link href="../static/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div class="container-fluid vh-100">
+    <div class="row h-100">
+      <!-- Left Side -->
+      <div class="col-md-6 left-side d-flex justify-content-center align-items-center">
+        <div class="text-center">
+          <img src="../images/solve2.jpg" class="img-fluid rounded" alt="Login" />
+          <h2 class="mt-4">Welcome Back!</h2>
+          <p>Login to continue to your account.</p>
+        </div>
+      </div>
+
+      <!-- Right Side -->
+      <div class="col-md-6 d-flex justify-content-center align-items-center">
+        <div class="form-container p-4">
+          <h2 class="text-center mb-4">
+            <i class="fas fa-sign-in-alt"></i> Login
+          </h2>
+          <form id="sign-in">
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Email Address</label>
+              <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                required />
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">Password</label>
+              <input type="password" name="password" class="form-control" id="exampleInputPassword1" required />
+            </div>
+            <button type="submit" class="btn btn-primary w-100">
               <i class="fas fa-sign-in-alt"></i> Login
-            </h2>
-            <form id="sign-in">
-              <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label"
-                  >Email Address</label
-                >
-                <input
-                  type="email"
-                  name="email"
-                  class="form-control"
-                  id="exampleInputEmail1"
-                  aria-describedby="emailHelp"
-                  required
-                />
-              </div>
-              <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label"
-                  >Password</label
-                >
-                <input
-                  type="password"
-                  name="password"
-                  class="form-control"
-                  id="exampleInputPassword1"
-                  required
-                />
-              </div>
-              <button type="submit" class="btn btn-primary w-100">
-                <i class="fas fa-sign-in-alt"></i> Login
-              </button>
-              <p class="mt-3 text-center">
-                <a href="register.html" class="text-decoration-none"
-                  >Don't have an account? Sign Up</a
-                >
-              </p>
-            </form>
-          </div>
+            </button>
+            <p class="mt-3 text-center">
+              <a href="register.html" class="text-decoration-none">Don't have an account? Sign Up</a>
+            </p>
+          </form>
         </div>
       </div>
     </div>
+  </div>
 
-    <script src="../static/js/bootstrap.min.js"></script>
-    <script type="module" src="./login.js"></script>
-  </body>
+  <script src="../static/js/bootstrap.min.js"></script>
+  <script type="module" src="./login.js"></script>
+</body>
+
 </html>
