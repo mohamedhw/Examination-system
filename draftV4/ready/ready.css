@@ -1,0 +1,90 @@
+/* ready.css */
+:root {
+  --primary-color: #56786c;
+  --secondary-color: #242d36;
+  --background-color: #f8f9fa;
+  --accent-color: #876b19;
+  --text-color: #555;
+}
+
+body {
+  background-color: var(--background-color);
+  font-family: "Arial", sans-serif;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.card {
+  background-color: var(--background-color);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  text-align: center;
+  height: 85%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 1s ease-in-out;
+  max-width: 500px;
+  /* width: 80%; */
+}
+
+.card img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  animation: slideIn 1s ease-in-out;
+}
+
+.card h3 {
+  color: var(--primary-color);
+  font-size: 2rem;
+  /* margin-bottom: 1rem; */
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+.card p.lead {
+  color: var(--text-color);
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+.btn-primary {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #6a5cae;
+  border-color: #6a5cae;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
