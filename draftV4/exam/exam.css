@@ -1,0 +1,134 @@
+/* exam.css */
+:root {
+  --text: #e6ecf3;
+  --background: #0c1118;
+  --primary: #56786c;
+  --secondary: #242d36;
+  --accent: #876b19;
+}
+
+body {
+  background-color: var(--background);
+  font-family: "Arial", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: var(--text);
+}
+
+/* Exam Difficulty Selector */
+#difficulty {
+  background-color: var(--primary);
+  color: var(--text);
+  border: 1px solid var(--accent);
+}
+
+#start-exam {
+  background-color: var(--accent);
+  border-color: var(--accent);
+}
+
+#start-exam:hover {
+  background-color: #6a5cae;
+  border-color: #6a5cae;
+}
+
+/* Exam Container */
+#exam-container {
+  height: 100vh;
+}
+
+.question {
+  background-color: var(--primary);
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#question-text {
+  color: var(--text);
+  font-size: 1.75rem;
+}
+
+.ans .option {
+  background-color: var(--accent);
+  color: var(--text);
+  padding: 1rem;
+  border-radius: 5px;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.ans .option:hover {
+  background-color: #55498d;
+}
+
+#navigation-container .btn {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.flag-icon {
+  color: var(--accent);
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* Side Container */
+.side {
+  background-color: var(--primary);
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#flagged-questions p {
+  background-color: var(--accent);
+  color: var(--text);
+  padding: 0.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+}
+
+#timer {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+#timer i {
+  color: var(--accent);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  #difficulty {
+    width: 50% !important;
+  }
+
+  .question,
+  .side {
+    padding: 1rem;
+  }
+
+  #question-text {
+    font-size: 1.5rem;
+  }
+
+  .ans .option {
+    padding: 0.75rem;
+  }
+
+  #navigation-container .btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+}
