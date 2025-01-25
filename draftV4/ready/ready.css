@@ -23,7 +23,6 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 2rem;
   text-align: center;
-  height: 85%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -34,7 +33,7 @@ body {
 
 .card img {
   max-width: 100%;
-  height: auto;
+  width: 80%;
   border-radius: 10px;
   margin-bottom: 1rem;
   animation: slideIn 1s ease-in-out;

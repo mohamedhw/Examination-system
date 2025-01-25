@@ -1,5 +1,6 @@
 import User from "../users/user.js";
 
+localStorage.removeItem("flags");
 // كلاس السؤال
 class Question {
   constructor(id, questionText, options, correctAnswer, explanation) {
@@ -51,6 +52,7 @@ class Flag {
     this.flag = !this.flag;
     Flag.setFlagState(this.id, this.flag);
   }
+
 }
 
 // كلاس الامتحان
@@ -152,6 +154,7 @@ document.getElementById("start-exam").addEventListener("click", () => {
       document.getElementById("exam-container").classList.remove("d-none");
       renderExam(exam);
       startTimer(180, document.getElementById("timer"), exam); // وقت الامتحان: 3 دقائق
+      // startTimer(5, document.getElementById("timer"), exam); // وقت الامتحان: 3 دقائق
     })
     .catch((error) => {
       console.error("Error loading questions:", error);
@@ -165,9 +168,8 @@ function renderExam(exam) {
   const currentQuestion = exam.getCurrentQuestion();
   const questionIndex = exam.currentQuestionIndex;
 
-  document.getElementById("question-text").innerText = `Question ${
-    questionIndex + 1
-  }: ${currentQuestion.questionText}`;
+  document.getElementById("question-text").innerText = `Question ${questionIndex + 1
+    }: ${currentQuestion.questionText}`;
 
   const flagIcon = document.getElementById("flag");
   flagIcon.style.color = currentQuestion.flag.flag ? "red" : "var(--accent)";
@@ -186,6 +188,7 @@ function renderExam(exam) {
 
     if (exam.answers[questionIndex] === option) {
       optionElement.style.backgroundColor = "lightblue";
+      optionElement.style.color = "#000";
     }
 
     optionElement.onclick = () => {
@@ -194,52 +197,49 @@ function renderExam(exam) {
     };
     optionsContainer.appendChild(optionElement);
   });
+  const subBtn = document.getElementById("submit-btn");
+  const nextBtn = document.getElementById("next-btn");
+  const prevBtn = document.getElementById("prev-btn");
 
-  document.getElementById("prev-btn").disabled = questionIndex === 0;
-  document.getElementById("next-btn").disabled =
-    questionIndex === exam.questions.length - 1;
-  document
-    .getElementById("submit-btn")
-    .classList.toggle("d-none", questionIndex !== exam.questions.length - 1);
+  prevBtn.disabled = questionIndex === 0;
+  nextBtn.disabled = questionIndex === exam.questions.length - 1;
+  subBtn.classList.toggle("d-none", questionIndex !== exam.questions.length - 1);
 
-  document.getElementById("prev-btn").onclick = () => {
+  prevBtn.onclick = () => {
     exam.previousQuestion();
     renderExam(exam);
   };
-
-  document.getElementById("next-btn").onclick = () => {
+  nextBtn.onclick = () => {
     exam.nextQuestion();
     renderExam(exam);
   };
-
-  document.getElementById("submit-btn").onclick = () => {
-    const grade = exam.calculateGrade();
+  subBtn.onclick = () => {
     exam.storeResults();
-    const userName = localStorage.getItem("userName"); // الحصول على اسم المستخدم
-    if (grade >= 50) {
-      location.assign(
-        `../success/success.html?grade=${grade}&name=${userName}`
-      );
-    } else {
-      location.assign(`../sorry/sorry.html?grade=${grade}&name=${userName}`);
-    }
+    location.assign(`../result/result.html`);
   };
 
   renderFlaggedQuestions(exam);
 }
 
 function renderFlaggedQuestions(exam) {
-  const flaggedQuestionsContainer =
-    document.getElementById("flagged-questions");
+  const flaggedQuestionsContainer = document.getElementById("flagged-questions");
   flaggedQuestionsContainer.innerHTML = "";
 
   exam.questions.forEach((question) => {
     if (question.flag.flag) {
-      const flaggedQuestion = document.createElement("p");
-      flaggedQuestion.innerText = `Question ${question.id}`;
-      flaggedQuestion.onclick = () => {
-        exam.goToQuestionById(question.id);
-        renderExam(exam);
+      const flaggedQuestion = document.createElement("div");
+      flaggedQuestion.classList = "d-flex justify-content-center align-items-center";
+      flaggedQuestion.innerHTML = `<p class="flag-b d-flex justify-content-between align-items-center w-75">Question ${question.id}<span class="text-end"><i id="rm-flag" class="bi bi-x-square-fill"></i><span></p>`;
+
+      flaggedQuestion.onclick = (e) => {
+        if (e.target.id === "rm-flag") {
+          question.flag.toggleFlag();
+          flaggedQuestion.innerHTML = "";
+          renderExam(exam)
+        } else {
+          exam.goToQuestionById(question.id);
+          renderExam(exam);
+        }
       };
       flaggedQuestionsContainer.appendChild(flaggedQuestion);
     }
@@ -264,10 +264,27 @@ function startTimer(duration, display, exam) {
       const grade = exam.calculateGrade();
       exam.storeResults();
       const userName = localStorage.getItem("userName"); // الحصول على اسم المستخدم
-      alert("Time's up! Redirecting to timeout page...");
-      location.assign(
-        `../timeout/timeout.html?grade=${grade}&name=${userName}`
-      );
+      const modal = document.getElementById("timeoutModal");
+      localStorage.removeItem("flags");
+      modal.style.display = "block";
+
+      setTimeout(() => {
+        location.assign(`../timeout/timeout.html?grade=${grade}&name=${userName}`);
+      }, 5000); // 5000 milliseconds = 5 seconds
+
+
     }
   }, 1000);
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Enter" && timer > 0) {
+      try {
+        nextBtn.click();
+      } catch {
+        subBtn.click();
+      }
+    }
+  })
 }
+
+

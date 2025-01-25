@@ -132,3 +132,24 @@ img {
     font-size: 0.9rem;
   }
 }
+
+
+/* Modal styles */
+.modal {
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  border: 1px solid #888;
+  max-width: 500px;
+  border-radius: 10px;
+}
+
+
