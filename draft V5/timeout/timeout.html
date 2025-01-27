@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Time out Page</title>
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="timeout.css" />
+  </head>
+  <body class="bg-light">
+    <div class="container text-center vh-100 d-flex align-items-center">
+      <div class="card mx-auto shadow-sm">
+        <div class="card-body">
+          <h3 id="user-name" class="mt-4">Exam Closed</h3>
+          <img src="images/timeout.jpg" alt="timeout" class="img-fluid" />
+          <p id="grade-text" class="lead">Your grade is 0%</p>
+          <a href="../users/login.html" class="btn btn-primary mt-3"
+            >Back To Login</a
+          >
+        </div>
+      </div>
+    </div>
+    <script src="../static/js/bootstrap.min.js"></script>
+    <script>
+      // Get user data from URL
+      const params = new URLSearchParams(window.location.search);
+      const grade = params.get("grade");
+      const name = params.get("name");
+
+      // Update the user name and grade
+      if (name) {
+        document.getElementById(
+          "user-name"
+        ).textContent = `Sorry ${name}, Timeout`;
+      }
+      if (grade) {
+        document.getElementById(
+          "grade-text"
+        ).textContent = `Your grade is ${grade}%`;
+      }
+    </script>
+  </body>
+</html>
