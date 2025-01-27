@@ -1,4 +1,4 @@
-import User from "./user.js";
+import User from "../static/user.js";
 
 const signIn = document.getElementById("sign-in");
 
@@ -10,8 +10,7 @@ signIn.addEventListener("submit", function (e) {
 
   const user = User.validateLogin(email, password);
   if (user) {
-    console.log("Login successful for:", user);
-    window.location.assign("../ready/ready.html");
+    window.location.assign("../../ready/ready.html");
   } else {
     alert("Invalid email or password.");
   }

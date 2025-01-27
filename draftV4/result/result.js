@@ -1,4 +1,4 @@
-import User from "../users/user.js";
+import User from "../users/static/user.js";
 
 const users = User.getUsers();
 const user = users.find((u) => u.email === localStorage.getItem("logedin"));
@@ -12,11 +12,11 @@ const grade = document.getElementById("grade-text")
 if (user) {
   console.log(user.firstName)
   if (scorePercentage > 50) {
-    gif.src = "../media/success.gif"
+    gif.src = "../static/images/success.gif"
     username.textContent = `Congratulations ${user.firstName} ${user.lastName}!`;
     grade.textContent = `Your grade is ${scorePercentage}%`;
   } else if (scorePercentage < 50) {
-    gif.src = "../media/sorry.jpg"
+    gif.src = "../static/images/sorry.jpg"
     username.textContent = `Sorry ${user.firstName} ${user.lastName}, You failed in this Exam`;
     grade.textContent = `Your grade is ${scorePercentage}%`;
 

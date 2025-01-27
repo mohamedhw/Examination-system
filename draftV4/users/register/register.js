@@ -1,4 +1,4 @@
-import User from "./user.js";
+import User from "../static/user.js";
 
 const signUp = document.getElementById("sign-up");
 
@@ -23,5 +23,5 @@ signUp.addEventListener("submit", function (e) {
 
   const newUser = new User(fName, lName, email, password);
   newUser.saveToLocalStorage();
-  window.location.href = "login.html";
+  window.location.href = "../login/login.html";
 });

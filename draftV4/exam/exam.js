@@ -1,7 +1,7 @@
-import User from "../users/user.js";
+import User from "../users/static/user.js";
 
 localStorage.removeItem("flags");
-// كلاس السؤال
+
 class Question {
   constructor(id, questionText, options, correctAnswer, explanation) {
     this.id = id;
@@ -12,6 +12,7 @@ class Question {
     this.flag = new Flag(id);
   }
 
+
   isCorrect(userAnswer) {
     return userAnswer === this.correctAnswer;
   }
@@ -21,7 +22,6 @@ class Question {
   }
 }
 
-// كلاس الراية (Flag)
 class Flag {
   constructor(id) {
     this.id = id;
@@ -55,7 +55,6 @@ class Flag {
 
 }
 
-// كلاس الامتحان
 class Exam {
   constructor(userEmail, questions = []) {
     this.userEmail = userEmail;
@@ -69,31 +68,31 @@ class Exam {
           q.explanation
         )
     );
-    this.currentQuestionIndex = 0;
+    this.currentQIndex = 0;
     this.score = 0;
     this.answers = new Array(questions.length).fill(null);
   }
 
-  goToQuestionById(questionId) {
-    const index = this.questions.findIndex((q) => q.id === questionId);
-    this.currentQuestionIndex = index;
+  goToQuestionById(Id) {
+    const index = this.questions.findIndex((q) => q.id === Id);
+    this.currentQIndex = index;
   }
 
   getCurrentQuestion() {
-    return this.questions[this.currentQuestionIndex];
+    return this.questions[this.currentQIndex];
   }
 
   nextQuestion() {
-    if (this.currentQuestionIndex < this.questions.length - 1) {
-      this.currentQuestionIndex++;
+    if (this.currentQIndex < this.questions.length - 1) {
+      this.currentQIndex++;
       return true;
     }
     return false;
   }
 
   previousQuestion() {
-    if (this.currentQuestionIndex > 0) {
-      this.currentQuestionIndex--;
+    if (this.currentQIndex > 0) {
+      this.currentQIndex--;
       return true;
     }
     return false;
@@ -101,7 +100,7 @@ class Exam {
 
   answerQuestion(userAnswer) {
     const currentQuestion = this.getCurrentQuestion();
-    const questionIndex = this.currentQuestionIndex;
+    const questionIndex = this.currentQIndex;
     if (this.answers[questionIndex]) {
       if (currentQuestion.isCorrect(this.answers[questionIndex])) {
         this.score--;
@@ -138,7 +137,6 @@ class Exam {
 
 let timerInterval;
 
-// بدء الامتحان عند النقر على زر "Start Exam"
 document.getElementById("start-exam").addEventListener("click", () => {
   const difficulty = document.getElementById("difficulty").value;
   fetch("../shared/data/javascript-questions.json")
@@ -153,8 +151,8 @@ document.getElementById("start-exam").addEventListener("click", () => {
       document.getElementById("difficulty-selector").classList.add("d-none");
       document.getElementById("exam-container").classList.remove("d-none");
       renderExam(exam);
-      startTimer(180, document.getElementById("timer"), exam); // وقت الامتحان: 3 دقائق
-      // startTimer(5, document.getElementById("timer"), exam); // وقت الامتحان: 3 دقائق
+      startTimer(180, document.getElementById("timer"), exam);
+      // startTimer(5, document.getElementById("timer"), exam);
     })
     .catch((error) => {
       console.error("Error loading questions:", error);
@@ -163,10 +161,9 @@ document.getElementById("start-exam").addEventListener("click", () => {
     });
 });
 
-// عرض الامتحان والأسئلة
 function renderExam(exam) {
   const currentQuestion = exam.getCurrentQuestion();
-  const questionIndex = exam.currentQuestionIndex;
+  const questionIndex = exam.currentQIndex;
 
   document.getElementById("question-text").innerText = `Question ${questionIndex + 1
     }: ${currentQuestion.questionText}`;
@@ -273,18 +270,19 @@ function startTimer(duration, display, exam) {
       }, 5000); // 5000 milliseconds = 5 seconds
 
 
+    } else {
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" && timer > 0) {
+          try {
+            document.getElementById("next-btn").click();
+          } catch {
+            document.getElementById("submit-btn").click();
+          }
+        }
+      })
     }
   }, 1000);
 
-  document.addEventListener("keydown", function (e) {
-    if (e.key === "Enter" && timer > 0) {
-      try {
-        nextBtn.click();
-      } catch {
-        subBtn.click();
-      }
-    }
-  })
 }
 
 

@@ -4,37 +4,53 @@ export default class User {
     this.lastName = lastName;
     this.email = email;
     this.password = password;
-    this.exams = []; // يجب أن يكون exams مصفوفة
+    this.exams = [];
   }
 
-  // حفظ المستخدم في localStorage
+  /**
+    * 
+    * add the new user to the users.
+  */
   saveToLocalStorage() {
     const users = User.getUsers();
     users.push(this);
     localStorage.setItem("users", JSON.stringify(users));
   }
 
-  // الحصول على جميع المستخدمين من localStorage
+  /**
+   * 
+   * @returns array
+  */
   static getUsers() {
     const storedUsers = localStorage.getItem("users");
     return JSON.parse(storedUsers) || [];
   }
 
-  // التحقق من وجود مستخدم بالبريد الإلكتروني
+  /**
+   * check if user exists
+   * 
+   * @param {string} email 
+   * @returns boolean
+  */
   static userExists(email) {
     return User.getUsers().some((user) => user.email === email);
   }
 
-  // التحقق من صحة بيانات تسجيل الدخول
+  /**
+   * 
+   * validate the login
+   * @param {string} email 
+   * @param {string} password 
+   * @returns object || null
+  */
   static validateLogin(email, password) {
     const users = User.getUsers();
-    const user = users.find(
-      (user) => user.email === email && user.password === password
-    );
+    const user = users.find((user) => user.email === email && user.password === password);
     if (user) {
       localStorage.setItem("logedin", user.email);
-      localStorage.setItem("userName", `${user.firstName} ${user.lastName}`); // حفظ اسم المستخدم
     }
     return user || null;
   }
+
+  // ToDo make a check for the login and register  
 }
