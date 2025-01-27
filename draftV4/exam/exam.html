@@ -51,7 +51,7 @@
             </button>
           </div>
           <div id="timer" class="text-center mt-4">
-            <i class="bi bi-clock me-2"></i>
+            <i class="bi bi-clock-history"></i>
             <span>Time Left: 03:00</span>
           </div>
         </div>
@@ -66,6 +66,22 @@
         </div>
       </div>
     </div>
+
+
+    <div class="container text-center vh-100 d-none align-items-center" id="result-container">
+      <div class="card mx-auto shadow-sm p-4" style="max-width: 500px">
+        <div class="card-body">
+          <img src="" alt="Congratulations" id="thumb" class="img-fluid mb-4" style="border-radius: 12px" />
+          <h3 id="user-name" class="mt-4 text-success">Congratulations!</h3>
+          <p id="grade-text" class="lead"></p>
+          <p id="starRating" class="text-center"></p>
+          <a href="../users/login.html" class="btn btn-primary mt-3">
+            Back To Login
+          </a>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <script src="../static/js/bootstrap.min.js"></script>

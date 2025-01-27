@@ -98,9 +98,6 @@ body {
   font-weight: 600;
 }
 
-#timer i {
-  color: var(--accent);
-}
 
 img {
   max-width: 100%;

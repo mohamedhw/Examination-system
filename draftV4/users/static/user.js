@@ -17,6 +17,7 @@ export default class User {
     localStorage.setItem("users", JSON.stringify(users));
   }
 
+
   /**
    * 
    * @returns array

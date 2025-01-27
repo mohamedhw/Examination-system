@@ -1,5 +1,9 @@
 import User from "../users/static/user.js";
 
+if (!localStorage.logedin) {
+  location.assign("../users/login/login.html")
+}
+
 localStorage.removeItem("flags");
 
 class Question {
@@ -71,6 +75,38 @@ class Exam {
     this.currentQIndex = 0;
     this.score = 0;
     this.answers = new Array(questions.length).fill(null);
+    this.startTime = new Date().getTime();
+    this.duration = 180 * 1000;
+  }
+
+  getTimeLeft() {
+    const currentTime = new Date().getTime();
+    const timeTaken = currentTime - this.startTime;
+    return Math.max(0, this.duration - timeTaken);
+  }
+
+  saveExamState() {
+    const examState = {
+      userEmail: this.userEmail,
+      questions: this.questions,
+      currentQIndex: this.currentQIndex,
+      score: this.score,
+      answers: this.answers,
+      startTime: this.startTime,
+    };
+    localStorage.setItem("currentExam", JSON.stringify(examState));
+  }
+
+  static loadExamState() {
+    const examState = JSON.parse(localStorage.getItem("currentExam"));
+    if (!examState) return null;
+
+    const exam = new Exam(examState.userEmail, examState.questions);
+    exam.currentQIndex = examState.currentQIndex;
+    exam.score = examState.score;
+    exam.answers = examState.answers;
+    exam.startTime = examState.startTime;
+    return exam;
   }
 
   goToQuestionById(Id) {
@@ -136,6 +172,7 @@ class Exam {
 }
 
 let timerInterval;
+const examSection = document.getElementById("exam-container");
 
 document.getElementById("start-exam").addEventListener("click", () => {
   const difficulty = document.getElementById("difficulty").value;
@@ -144,20 +181,24 @@ document.getElementById("start-exam").addEventListener("click", () => {
     .then((data) => {
       const questions = data.questions[difficulty] || [];
       const loggedInUserEmail = localStorage.getItem("logedin");
+      // to be removed
       if (!loggedInUserEmail) {
         throw new Error("No logged-in user found");
       }
-      const exam = new Exam(loggedInUserEmail, questions);
+      let exam = Exam.loadExamState();
+      if (!exam) {
+        exam = new Exam(loggedInUserEmail, questions.sort(() => Math.random() - 0.5));
+      }
       document.getElementById("difficulty-selector").classList.add("d-none");
-      document.getElementById("exam-container").classList.remove("d-none");
+      examSection.classList.remove("d-none");
       renderExam(exam);
-      startTimer(180, document.getElementById("timer"), exam);
-      // startTimer(5, document.getElementById("timer"), exam);
+      // startTimer(180, document.getElementById("timer"), exam);
+      startTimer(5, document.getElementById("timer"), exam);
     })
     .catch((error) => {
       console.error("Error loading questions:", error);
       alert("Failed to load questions. Please try again.");
-      location.assign("../users/login.html");
+      location.assign("../users/login/login.html");
     });
 });
 
@@ -173,7 +214,7 @@ function renderExam(exam) {
   flagIcon.onclick = () => {
     currentQuestion.toggleFlag();
     renderExam(exam);
-    renderFlaggedQuestions(exam);
+    renderFlaggedQ(exam);
   };
 
   const optionsContainer = document.getElementById("options-container");
@@ -194,9 +235,11 @@ function renderExam(exam) {
     };
     optionsContainer.appendChild(optionElement);
   });
+
   const subBtn = document.getElementById("submit-btn");
   const nextBtn = document.getElementById("next-btn");
   const prevBtn = document.getElementById("prev-btn");
+  const resultSection = document.getElementById("result-container");
 
   prevBtn.disabled = questionIndex === 0;
   nextBtn.disabled = questionIndex === exam.questions.length - 1;
@@ -212,15 +255,20 @@ function renderExam(exam) {
   };
   subBtn.onclick = () => {
     exam.storeResults();
+    localStorage.removeItem("currentExam");
+    // examSection.classList.add("d-none");
+    // resultSection.classList.replace("d-none", "d-flex");
     location.assign(`../result/result.html`);
   };
 
-  renderFlaggedQuestions(exam);
+  renderFlaggedQ(exam);
+  exam.saveExamState();
+
 }
 
-function renderFlaggedQuestions(exam) {
-  const flaggedQuestionsContainer = document.getElementById("flagged-questions");
-  flaggedQuestionsContainer.innerHTML = "";
+function renderFlaggedQ(exam) {
+  const fQContainer = document.getElementById("flagged-questions");
+  fQContainer.innerHTML = "";
 
   exam.questions.forEach((question) => {
     if (question.flag.flag) {
@@ -238,7 +286,7 @@ function renderFlaggedQuestions(exam) {
           renderExam(exam);
         }
       };
-      flaggedQuestionsContainer.appendChild(flaggedQuestion);
+      fQContainer.appendChild(flaggedQuestion);
     }
   });
 }
@@ -260,9 +308,10 @@ function startTimer(duration, display, exam) {
       clearInterval(timerInterval);
       const grade = exam.calculateGrade();
       exam.storeResults();
-      const userName = localStorage.getItem("userName"); // الحصول على اسم المستخدم
+      const userName = localStorage.getItem("userName");
       const modal = document.getElementById("timeoutModal");
       localStorage.removeItem("flags");
+      localStorage.removeItem("currentExam");
       modal.style.display = "block";
 
       setTimeout(() => {
@@ -282,7 +331,6 @@ function startTimer(duration, display, exam) {
       })
     }
   }, 1000);
-
 }
 
 
