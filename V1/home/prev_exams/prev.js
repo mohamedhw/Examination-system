@@ -30,7 +30,7 @@ function loadResults(userEmail) {
 
 function viewCorrectAnswers(examIndex) {
   localStorage.setItem("examIndex", examIndex);
-  window.location.href = "./correct answers/correct.html";
+  window.location.href = "./correct_answers/correct.html";
 }
 
 function logout() {
