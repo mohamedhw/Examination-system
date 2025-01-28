@@ -183,8 +183,18 @@ class Exam {
 
 }
 
+const readyBtn = document.getElementById("ready-btn");
+const readyPage = document.getElementById("ready-page");
+const examContent = document.getElementById("exam-content");
 let timerInterval;
-document.addEventListener("DOMContentLoaded", () => {
+
+readyBtn.addEventListener("click", (e) => {
+  e.preventDefault(); // Prevent default link behavior
+
+  // Hide ready page and show exam content
+  readyPage.classList.add("d-none");
+  examContent.classList.remove("d-none");
+
   const loading = document.getElementById("loading");
   const emptyArr = document.getElementById("empty");
   const errorCon = document.getElementById("error");
@@ -195,37 +205,36 @@ document.addEventListener("DOMContentLoaded", () => {
   fetch(`../../shared/data/${examType}.json`)
     .then((response) => {
       if (!response.ok) {
-        errorCon.classList.remove("d-none")
-        examCon.classList.add("d-none");
+        throw new Error('Network response was not ok');
       }
       return response.json();
     })
     .then((data) => {
       const questions = data.questions[difficulty] || [];
       const loggedInUserEmail = localStorage.getItem("logedin");
+
       if (questions.length === 0) {
         emptyArr.classList.remove("d-none");
-        examCon.classList.add("d-none");
         return;
       }
+
       let exam = Exam.loadExamState();
       if (!exam) {
         localStorage.removeItem("currentExam");
         exam = new Exam(loggedInUserEmail, questions.sort(() => Math.random() - 0.5));
       }
 
+      examCon.classList.remove("d-none");
+      examSide.classList.remove("d-none");
       renderExam(exam);
       startTimer(180, document.getElementById("timer"), exam);
     })
     .catch((error) => {
       errorCon.classList.remove("d-none");
-      examCon.classList.add("d-none");
     })
     .finally(() => {
       loading.classList.add("d-none");
-      examCon.classList.remove("d-none");
-      examSide.classList.remove("d-none");
-    })
+    });
 });
 
 function renderExam(exam) {
