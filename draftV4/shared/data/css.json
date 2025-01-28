@@ -1,0 +1,190 @@
+{
+  "questions": {
+    "easy": [
+      {
+        "id": "e1",
+        "question": "What does CSS stand for?",
+        "options": [
+          "Computer Style Sheets",
+          "Cascading Style Sheets",
+          "Creative Style Sheets",
+          "Colorful Style Sheets"
+        ],
+        "correctAnswer": "Cascading Style Sheets",
+        "explanation": "CSS stands for Cascading Style Sheets, which is a style sheet language used for describing the presentation of a document written in HTML."
+      },
+      {
+        "id": "e2",
+        "question": "Which property is used to change the background color?",
+        "options": [
+          "color",
+          "bgcolor",
+          "background-color",
+          "background"
+        ],
+        "correctAnswer": "background-color",
+        "explanation": "The background-color property is used to set the background color of an element."
+      },
+      {
+        "id": "e3",
+        "question": "How do you select an element with id 'demo'?",
+        "options": [
+          ".demo",
+          "#demo",
+          "demo",
+          "*demo"
+        ],
+        "correctAnswer": "#demo",
+        "explanation": "The # symbol is used to select an element by its id attribute in CSS."
+      },
+      {
+        "id": "e4",
+        "question": "Which property controls text size?",
+        "options": [
+          "text-size",
+          "font-size",
+          "text-style",
+          "size"
+        ],
+        "correctAnswer": "font-size",
+        "explanation": "The font-size property is used to specify the size of text in CSS."
+      },
+      {
+        "id": "e5",
+        "question": "How do you make text bold in CSS?",
+        "options": [
+          "font-weight: bold",
+          "style: bold",
+          "text: bold",
+          "bold: true"
+        ],
+        "correctAnswer": "font-weight: bold",
+        "explanation": "The font-weight property with value 'bold' is used to make text bold in CSS."
+      }
+    ],
+    "medium": [
+      {
+        "id": "m1",
+        "question": "What is the difference between margin and padding?",
+        "options": [
+          "They are the same",
+          "Margin is outside the element, padding is inside",
+          "Padding is outside the element, margin is inside",
+          "Both are inside the element"
+        ],
+        "correctAnswer": "Margin is outside the element, padding is inside",
+        "explanation": "Margin creates space outside an element's border, while padding creates space between the border and the element's content."
+      },
+      {
+        "id": "m2",
+        "question": "What is the purpose of z-index?",
+        "options": [
+          "Controls element width",
+          "Controls stacking order of elements",
+          "Controls element height",
+          "Controls element color"
+        ],
+        "correctAnswer": "Controls stacking order of elements",
+        "explanation": "z-index determines the stacking order of positioned elements that overlap."
+      },
+      {
+        "id": "m3",
+        "question": "What does the 'box-sizing: border-box' do?",
+        "options": [
+          "Includes padding and border in element's total width and height",
+          "Excludes padding and border from total size",
+          "Only includes margin in total size",
+          "Has no effect on element sizing"
+        ],
+        "correctAnswer": "Includes padding and border in element's total width and height",
+        "explanation": "border-box includes padding and border in the element's total width and height calculations."
+      },
+      {
+        "id": "m4",
+        "question": "What is a pseudo-class?",
+        "options": [
+          "A fake class",
+          "A special state of an element",
+          "A JavaScript class",
+          "A type of HTML element"
+        ],
+        "correctAnswer": "A special state of an element",
+        "explanation": "A pseudo-class defines a special state of an element, like :hover, :active, or :first-child."
+      },
+      {
+        "id": "m5",
+        "question": "What is the purpose of media queries?",
+        "options": [
+          "To play media files",
+          "To make websites responsive",
+          "To query databases",
+          "To load images"
+        ],
+        "correctAnswer": "To make websites responsive",
+        "explanation": "Media queries allow you to apply CSS rules based on device characteristics, making websites responsive."
+      }
+    ],
+    "hard": [
+      {
+        "id": "h1",
+        "question": "Explain the CSS Box Model.",
+        "options": [
+          "Content only",
+          "Content + Padding + Border + Margin",
+          "Content + Margin",
+          "Padding + Border"
+        ],
+        "correctAnswer": "Content + Padding + Border + Margin",
+        "explanation": "The CSS Box Model consists of content, padding, border, and margin, moving from innermost to outermost."
+      },
+      {
+        "id": "h2",
+        "question": "What is CSS Grid and how does it differ from Flexbox?",
+        "options": [
+          "They are the same",
+          "Grid is 2D, Flexbox is 1D",
+          "Grid is 1D, Flexbox is 2D",
+          "Neither is dimensional"
+        ],
+        "correctAnswer": "Grid is 2D, Flexbox is 1D",
+        "explanation": "CSS Grid is designed for two-dimensional layouts (rows and columns), while Flexbox is designed for one-dimensional layouts."
+      },
+      {
+        "id": "h3",
+        "question": "What is CSS specificity and how is it calculated?",
+        "options": [
+          "Random priority of styles",
+          "Based on selector type and quantity",
+          "Only based on order of appearance",
+          "Based on element names only"
+        ],
+        "correctAnswer": "Based on selector type and quantity",
+        "explanation": "Specificity is calculated based on the number of ID selectors, classes, and elements in a selector."
+      },
+      {
+        "id": "h4",
+        "question": "What are CSS Custom Properties (Variables)?",
+        "options": [
+          "Regular properties",
+          "Reusable values defined with --",
+          "JavaScript variables",
+          "HTML attributes"
+        ],
+        "correctAnswer": "Reusable values defined with --",
+        "explanation": "CSS Custom Properties (Variables) are entities defined by authors that contain specific values to be reused throughout a document."
+      },
+      {
+        "id": "h5",
+        "question": "Explain the difference between 'display: none' and 'visibility: hidden'.",
+        "options": [
+          "They are identical",
+          "display: none removes from layout, visibility: hidden only hides",
+          "visibility: hidden removes from layout, display: none only hides",
+          "Neither affects layout"
+        ],
+        "correctAnswer": "display: none removes from layout, visibility: hidden only hides",
+        "explanation": "display: none removes the element from the document flow, while visibility: hidden keeps the space but makes the element invisible."
+      }
+    ]
+  }
+}
