@@ -1,7 +1,7 @@
 import User from "../users/static/user.js";
 
-const users = User.getUsers();
-const user = users.find((u) => u.email === localStorage.getItem("logedin"));
+// const users = User.getUsers();
+const user = JSON.parse(localStorage.getItem("logedin"));
 
 const exam = user.exams[user.exams.length - 1];
 const scorePercentage = (exam.score / exam.total) * 100;
@@ -10,12 +10,15 @@ const username = document.getElementById("user-name");
 const grade = document.getElementById("grade-text");
 
 if (user) {
+  console.log(user.exams[user.exams.length - 1])
   console.log(user.firstName);
   if (scorePercentage > 50) {
+    console.log("test")
     gif.src = "../static/images/success.gif";
     username.textContent = `Congratulations ${user.firstName} ${user.lastName}!`;
     grade.textContent = `Your grade is ${scorePercentage}%`;
   } else if (scorePercentage < 50) {
+    console.log("test2")
     gif.src = "../static/images/sorry.jpg";
     username.textContent = `Sorry ${user.firstName} ${user.lastName}, You failed in this Exam`;
     grade.textContent = `Your grade is ${scorePercentage}%`;

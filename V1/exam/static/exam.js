@@ -146,22 +146,36 @@ class Exam {
   }
 
   storeResults() {
+    // Get the users array and logged in user
     const users = User.getUsers();
-    const user = users.find((u) => u.email === this.userEmail);
+    const loggedInUser = JSON.parse(localStorage.getItem("logedin"));
 
-    if (user) {
-      if (!Array.isArray(user.exams)) {
-        user.exams = [];
+    if (loggedInUser) {
+      // Initialize exams array if it doesn't exist
+      if (!Array.isArray(loggedInUser.exams)) {
+        loggedInUser.exams = [];
       }
-      user.exams.push({
+
+      // Add new exam
+      loggedInUser.exams.push({
         score: this.score,
         total: this.questions.length,
         date: new Date().toISOString(),
         answers: this.answers,
       });
-      localStorage.setItem("users", JSON.stringify(users));
+
+      // Update the logged in user in localStorage
+      localStorage.setItem("logedin", JSON.stringify(loggedInUser));
+
+      // Find and update the user in the users array
+      const userIndex = users.findIndex(u => u.email === loggedInUser.email);
+      if (userIndex !== -1) {
+        users[userIndex] = loggedInUser;
+        localStorage.setItem("users", JSON.stringify(users));
+      }
     }
   }
+
 }
 
 let timerInterval;
@@ -179,6 +193,7 @@ document.addEventListener("DOMContentLoaded", () => {
       let exam = Exam.loadExamState();
 
       if (!exam) {
+        localStorage.removeItem("currentExam");
         exam = new Exam(loggedInUserEmail, questions.sort(() => Math.random() - 0.5));
       }
 
@@ -217,10 +232,14 @@ function renderExam(exam) {
     }
     optionElement.onclick = () => {
       exam.answerQuestion(option);
+      exam.saveExamState();
       renderExam(exam);
     };
     optionsContainer.appendChild(optionElement);
   });
+
+
+
   const subBtn = document.getElementById("submit-btn");
   const nextBtn = document.getElementById("next-btn");
   const prevBtn = document.getElementById("prev-btn");
@@ -241,7 +260,6 @@ function renderExam(exam) {
   subBtn.onclick = () => {
     exam.storeResults();
     localStorage.removeItem("currentExam");
-
     location.assign(`../result/result.html`);
   };
   renderFlaggedQuestions(exam);
@@ -273,6 +291,7 @@ function renderFlaggedQuestions(exam) {
     }
   });
 }
+
 
 function startTimer(duration, display, exam) {
   const startTime = exam.startTime; // Get the start time from the exam object
