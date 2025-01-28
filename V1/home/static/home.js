@@ -1,10 +1,10 @@
 import User from "../../users/static/user.js";
 const user = JSON.parse(localStorage.getItem("logedin"));
 
-localStorage.removeItem("flags");
-localStorage.removeItem("currentExam");
 
 if (user) {
+  localStorage.removeItem("flags");
+  localStorage.removeItem("currentExam");
   document.getElementById("user-name-text").innerText =
     user.firstName + " " + user.lastName;
 } else {

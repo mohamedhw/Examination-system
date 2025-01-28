@@ -187,32 +187,39 @@ let timerInterval;
 document.addEventListener("DOMContentLoaded", () => {
   const loading = document.getElementById("loading");
   const emptyArr = document.getElementById("empty");
-  const error = document.getElementById("error");
+  const errorCon = document.getElementById("error");
   const examCon = document.getElementById("exam-container");
   const examSide = document.getElementById("side");
   const difficulty = localStorage.getItem("examDifficulty");
   const examType = localStorage.getItem("examName");
   fetch(`../../shared/data/${examType}.json`)
-    .then((response) => response.json())
+    .then((response) => {
+      if (!response.ok) {
+        errorCon.classList.remove("d-none")
+        examCon.classList.add("d-none");
+      }
+      return response.json();
+    })
     .then((data) => {
       const questions = data.questions[difficulty] || [];
       const loggedInUserEmail = localStorage.getItem("logedin");
-
+      if (questions.length === 0) {
+        emptyArr.classList.remove("d-none");
+        examCon.classList.add("d-none");
+        return;
+      }
       let exam = Exam.loadExamState();
       if (!exam) {
         localStorage.removeItem("currentExam");
         exam = new Exam(loggedInUserEmail, questions.sort(() => Math.random() - 0.5));
-      }
-      if (data.length < 0) {
-        emptyArr.classList.remove("d-none");
-        examCon.classList.add("d-none");
       }
 
       renderExam(exam);
       startTimer(180, document.getElementById("timer"), exam);
     })
     .catch((error) => {
-      error.classList.remove("d-none");
+      errorCon.classList.remove("d-none");
+      examCon.classList.add("d-none");
     })
     .finally(() => {
       loading.classList.add("d-none");

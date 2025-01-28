@@ -63,6 +63,11 @@ export default class User {
   }
 
   static logout() {
+    localStorage.removeItem("flags");
+    localStorage.removeItem("currentExam");
+    localStorage.removeItem("examDifficulty");
+    localStorage.removeItem("examIndex");
+    localStorage.removeItem("examName");
     localStorage.removeItem("logedin");
   }
 
