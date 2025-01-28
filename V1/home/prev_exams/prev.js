@@ -1,11 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const user = JSON.parse(localStorage.getItem("loggedInUser"));
+  const user = JSON.parse(localStorage.getItem("logedin"));
   if (user) {
     document.getElementById("user-name-text").innerText =
       user.firstName + " " + user.lastName;
     loadResults(user.email);
   } else {
-    window.location.href = "../users/login/login.html";
+    window.location.href = "../../users/login/login.html";
   }
 });
 
@@ -35,5 +35,5 @@ function viewCorrectAnswers(examIndex) {
 
 function logout() {
   localStorage.removeItem("loggedInUser");
-  window.location.href = "../users/login/login.html";
+  window.location.href = "../../users/login/login.html";
 }

@@ -1,13 +1,12 @@
 import User from "../../users/static/user.js";
 const user = JSON.parse(localStorage.getItem("logedin"));
-console.log(user)
 
 
 if (user) {
   document.getElementById("user-name-text").innerText =
     user.firstName + " " + user.lastName;
 } else {
-  window.location.href = "../users/login/login.html";
+  window.location.href = "../../users/login/login.html";
 }
 
 const exams = ["html", "css", "javascript"];

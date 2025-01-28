@@ -1,5 +1,4 @@
 import User from "../../users/static/user.js";
-localStorage.removeItem("flags");
 
 class Question {
   constructor(id, questionText, options, correctAnswer, explanation) {
@@ -45,6 +44,7 @@ class Flag {
       console.error("Error setting flag state:", error);
     }
   }
+
 
   toggleFlag() {
     this.flag = !this.flag;
@@ -99,6 +99,11 @@ class Exam {
     exam.score = examState.score;
     exam.answers = examState.answers;
     exam.startTime = examState.startTime;
+
+    exam.questions.forEach(question => {
+      question.flag = new Flag(question.id);
+    });
+
     return exam;
   }
 

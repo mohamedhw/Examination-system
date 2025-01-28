@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
       user.firstName + " " + user.lastName;
     loadCorrectAnswers(user.email);
   } else {
-    window.location.href = "../users/login/login.html";
+    window.location.href = "../../../users/login/login.html";
   }
 });
 
@@ -31,5 +31,5 @@ function loadCorrectAnswers(userEmail) {
 
 function logout() {
   localStorage.removeItem("loggedInUser");
-  window.location.href = "../users/login/login.html";
+  window.location.href = "../../../users/login/login.html";
 }
