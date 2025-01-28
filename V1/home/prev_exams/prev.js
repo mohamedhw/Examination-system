@@ -38,6 +38,8 @@ function viewCorrectAnswers(examIndex) {
 }
 
 function logOut() {
-  localStorage.removeItem("loggedInUser");
+  User.logout();
   window.location.href = "../../users/login/login.html";
 }
+const logoutBtn = document.getElementById("logout-btn");
+logoutBtn.onclick = logOut;

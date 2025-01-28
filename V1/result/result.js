@@ -1,6 +1,5 @@
 import User from "../users/static/user.js";
 
-// const users = User.getUsers();
 const user = JSON.parse(localStorage.getItem("logedin"));
 
 const exam = user.exams[user.exams.length - 1];
@@ -10,21 +9,16 @@ const username = document.getElementById("user-name");
 const grade = document.getElementById("grade-text");
 
 if (user) {
-  console.log(user.exams[user.exams.length - 1])
-  console.log(user.firstName);
   if (scorePercentage > 50) {
-    console.log("test")
     gif.src = "../static/images/success.gif";
     username.textContent = `Congratulations ${user.firstName} ${user.lastName}!`;
     grade.textContent = `Your grade is ${scorePercentage}%`;
   } else if (scorePercentage < 50) {
-    console.log("test2")
     gif.src = "../static/images/sorry.jpg";
     username.textContent = `Sorry ${user.firstName} ${user.lastName}, You failed in this Exam`;
     grade.textContent = `Your grade is ${scorePercentage}%`;
   }
   const stars = scoreToStars(scorePercentage, 100, 5);
-  console.log("stars", stars);
   displayStars(stars);
 }
 
@@ -46,5 +40,12 @@ function displayStars(stars) {
       starContainer.innerHTML += '<i class="bi bi-star m-1"></i>'; // Empty star
     }
   }
-  console.log(starContainer);
 }
+
+function logOut() {
+  User.logout();
+  location.assign("../../users/login/login.html");
+}
+
+const logoutBtn = document.getElementById("logout-btn");
+logoutBtn.onclick = logOut;
