@@ -1,7 +1,13 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
 :root {
   --primary-color: #56786c;
   --secondary-color: #242d36;
-  --background-color: #f8f9fa;
+  --background-color: #252627;
   --accent-color: #876b19;
   --text-color: #555;
 }
@@ -9,15 +15,14 @@
 body {
   background-color: var(--background-color);
   font-family: "Arial", sans-serif;
-  box-sizing: border-box;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+}
+
+.navbar {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .card {
-  background-color: var(--background-color);
+  background-color: white;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 2rem;

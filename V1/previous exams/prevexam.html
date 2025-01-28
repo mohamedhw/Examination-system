@@ -3,13 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Success Page</title>
-    <link rel="stylesheet" href="../static/css/bootstrap.min.css" />
+    <title>Previous Exams</title>
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
     />
-    <link rel="stylesheet" href="result.css" />
+    <link href="prev.css" rel="stylesheet" />
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -29,15 +29,13 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-              <a class="nav-link" href="../home/home.html" id="user-name">
+              <a class="nav-link" href="#" id="user-name">
                 <i class="bi bi-person-circle"></i>
                 <span id="user-name-text"></span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../previous exams/prevexam.html"
-                >Previous Exams</a
-              >
+              <a class="nav-link" href="prevexam.html">Previous Exams</a>
             </li>
             <li class="nav-item">
               <a
@@ -51,20 +49,26 @@
         </div>
       </div>
     </nav>
-    <div class="container d-flex vh-100 align-items-center">
-      <div class="card mx-auto shadow-sm">
-        <div class="card-body">
-          <img src="" alt="Congratulations" id="thumb" class="img-fluid mb-4" />
-          <h3 id="user-name" class="mt-4 text-success">Congratulations!</h3>
-          <p id="grade-text" class="lead"></p>
-          <p id="starRating" class="text-center"></p>
-          <a href="../users/login.html" class="btn btn-primary mt-3">
-            Back To Login
-          </a>
-        </div>
-      </div>
+
+    <div class="container mt-5 fade-in">
+      <h2>Previous Exams</h2>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Score</th>
+            <th scope="col">Total</th>
+            <th scope="col">Grade</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="results-table-body">
+          <!-- Results will be populated here -->
+        </tbody>
+      </table>
     </div>
+
     <script src="../static/js/bootstrap.min.js"></script>
-    <script type="module" src="result.js"></script>
+    <script src="prev.js"></script>
   </body>
 </html>

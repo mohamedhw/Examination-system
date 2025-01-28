@@ -2,12 +2,13 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 :root {
   --primary-color: #2f6c31;
   --text-color: #555;
-  --background-color: #f8f9fa;
+  --background-color: #252627;
   --accent-color: #876b19;
   --text-color: #555;
 }
@@ -15,11 +16,20 @@
 body {
   background-color: var(--background-color);
   font-family: "Arial", sans-serif;
-  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.navbar {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.container {
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
 }
 
 .card {
@@ -28,12 +38,8 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 2rem;
   text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   animation: fadeIn 1s ease-in-out;
   max-width: 500px;
-  /* width: 80%; */
 }
 
 .card img {
@@ -47,14 +53,12 @@ body {
 .card h3 {
   color: var(--primary-color);
   font-size: 2rem;
-  /* margin-bottom: 1rem; */
   animation: fadeIn 1.5s ease-in-out;
 }
 
 .card p.lead {
   color: var(--text-color);
   font-size: 1.5rem;
-  /* margin-bottom: 1rem; */
   animation: fadeIn 1.5s ease-in-out;
 }
 
