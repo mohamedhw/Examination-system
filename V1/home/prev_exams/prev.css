@@ -33,7 +33,9 @@ body {
   background-color: #0056b3;
   border-color: #004085;
 }
-
+.navbar-nav .bi {
+  vertical-align: middle; /* Aligns icons to the middle of the text */
+}
 .fade-in {
   animation: fadeIn 1s ease-in-out;
 }
@@ -46,3 +48,4 @@ body {
     opacity: 1;
   }
 }
+
