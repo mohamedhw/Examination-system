@@ -185,6 +185,11 @@ class Exam {
 
 let timerInterval;
 document.addEventListener("DOMContentLoaded", () => {
+  const loading = document.getElementById("loading");
+  const emptyArr = document.getElementById("empty");
+  const error = document.getElementById("error");
+  const examCon = document.getElementById("exam-container");
+  const examSide = document.getElementById("side");
   const difficulty = localStorage.getItem("examDifficulty");
   const examType = localStorage.getItem("examName");
   fetch(`../../shared/data/${examType}.json`)
@@ -192,25 +197,28 @@ document.addEventListener("DOMContentLoaded", () => {
     .then((data) => {
       const questions = data.questions[difficulty] || [];
       const loggedInUserEmail = localStorage.getItem("logedin");
-      if (!loggedInUserEmail) {
-        throw new Error("No logged-in user found");
-      }
-      let exam = Exam.loadExamState();
 
+      let exam = Exam.loadExamState();
       if (!exam) {
         localStorage.removeItem("currentExam");
         exam = new Exam(loggedInUserEmail, questions.sort(() => Math.random() - 0.5));
       }
+      if (data.length < 0) {
+        emptyArr.classList.remove("d-none");
+        examCon.classList.add("d-none");
+      }
 
-      document.getElementById("exam-container").classList.remove("d-none");
       renderExam(exam);
       startTimer(180, document.getElementById("timer"), exam);
     })
     .catch((error) => {
-      console.error("Error loading questions:", error);
-      alert("Failed to load questions. Please try again.");
-      location.assign("../users/login.html");
-    });
+      error.classList.remove("d-none");
+    })
+    .finally(() => {
+      loading.classList.add("d-none");
+      examCon.classList.remove("d-none");
+      examSide.classList.remove("d-none");
+    })
 });
 
 function renderExam(exam) {
@@ -329,16 +337,17 @@ function startTimer(duration, display, exam) {
       }, 5000); // 5000 milliseconds = 5 seconds
     } else {
       document.addEventListener("keydown", function (e) {
+        const nextB = document.getElementById("next-btn");
         if (e.key === "Enter" && timeLeft > 0) {
-          try {
-            document.getElementById("next-btn").click();
-          } catch {
+          if (nextB.disabled) {
             document.getElementById("submit-btn").click();
+          } else {
+            nextB.click();
           }
         }
+
       });
     }
   }, 1000);
 }
-
 

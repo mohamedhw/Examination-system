@@ -1,4 +1,8 @@
+import User from "../../users/static/user.js"
+
 document.addEventListener("DOMContentLoaded", () => {
+  localStorage.removeItem("flags");
+  localStorage.removeItem("currentExam");
   const user = JSON.parse(localStorage.getItem("logedin"));
   if (user) {
     document.getElementById("user-name-text").innerText =
@@ -33,7 +37,7 @@ function viewCorrectAnswers(examIndex) {
   window.location.href = "./correct_answers/correct.html";
 }
 
-function logout() {
+function logOut() {
   localStorage.removeItem("loggedInUser");
   window.location.href = "../../users/login/login.html";
 }

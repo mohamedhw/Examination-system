@@ -14,7 +14,6 @@ function loadCorrectAnswers(user) {
   if (user && user.exams && user.exams[examIndex]) {
     const exam = user.exams[examIndex];
     const answersTableBody = document.getElementById("answers-table-body");
-    console.log(exam)
     exam.answers.forEach((answer, index) => {
       const question = exam.questions[index];
       const row = document.createElement("tr");

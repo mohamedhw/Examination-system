@@ -1,6 +1,8 @@
 import User from "../../users/static/user.js";
 const user = JSON.parse(localStorage.getItem("logedin"));
 
+localStorage.removeItem("flags");
+localStorage.removeItem("currentExam");
 
 if (user) {
   document.getElementById("user-name-text").innerText =
@@ -12,7 +14,7 @@ if (user) {
 const exams = ["html", "css", "javascript"];
 
 function addExam(exams) {
-  const cardContainer = document.getElementById("card-contaner")
+  const cardContainer = document.getElementById("card-contaner");
 
   exams.forEach(element => {
     const card = document.createElement("div");
@@ -21,7 +23,7 @@ function addExam(exams) {
       <div class="card animate-fade-in">
         <div class="card-body text-center">
           <h5 class="card-title">${element} Exam</h5>
-          <select id="html-difficulty" class="form-select mb-3">
+          <select id="${element}-difficulty" class="form-select mb-3">
             <option value="easy">Easy</option>
             <option value="medium">Medium</option>
             <option value="hard">Hard</option>
@@ -30,16 +32,16 @@ function addExam(exams) {
             Start Exam
           </button>
         </div>
-      </div>`
+      </div>`;
     cardContainer.appendChild(card);
     const button = card.querySelector(".start-exam-btn");
     button.addEventListener("click", () => startExam(element));
   });
-
 }
 
-
 function startExam(type) {
+  localStorage.removeItem("flags");
+  localStorage.removeItem("currentExam");
   const difficulty = document.getElementById(`${type}-difficulty`).value;
   localStorage.setItem("examName", type);
   localStorage.setItem("examDifficulty", difficulty);

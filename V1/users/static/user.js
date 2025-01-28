@@ -7,6 +7,7 @@ export default class User {
     this.exams = [];
   }
 
+
   /**
     * 
     * add the new user to the users.
